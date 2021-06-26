@@ -1,1 +1,2 @@
+web: gunicorn RTAT.wsgi --log-file -
 web: gunicorn ZoomAT.wsgi --log-file -
