@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ze2mrlz)o+m6@en0ty30y35hi3c27l-5-nem_vv1c1lto4%(-7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'rt-attendance-tracker.herokuapp.com/']
 
