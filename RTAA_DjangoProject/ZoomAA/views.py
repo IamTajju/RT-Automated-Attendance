@@ -34,14 +34,16 @@ def index(request):
             try:
                 form.save()
                 image = request.FILES['image']
+                '''
                 image = image.name
                 path = settings.MEDIA_ROOT
                 # "\\images\\" for local host
                 pathz = path + "/images/" + image
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
+                '''
                 text = pytesseract.image_to_string(
-                    Image.open(pathz), lang='eng')
+                    Image.open(image), lang='eng')
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
                 Response.addStudentNames(text)
