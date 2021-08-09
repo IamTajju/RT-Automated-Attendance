@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bdkik6nfcc_l32lnb^d40a9(_dyx)fm#oap0er!!fkgg%caxs$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rt-aa.herokuapp.com']
 
 
 # Application definition
@@ -122,11 +122,10 @@ USE_TZ = True
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_URL = '/static/'
 #STATIC_ROOT = 'ZoomAA\static\ZoomAA\images'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
