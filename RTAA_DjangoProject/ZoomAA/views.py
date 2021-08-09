@@ -42,14 +42,15 @@ def index(request):
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
                 '''
+                pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 text = pytesseract.image_to_string(
                     Image.open(image), lang='eng')
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
                 Response.addStudentNames(text)
-                os.remove(pathz)
+                # os.remove(pathz)
             except:
-                os.remove(pathz)
+                # os.remove(pathz)
                 message = "Check your filename and ensure it doesn't have any space or check if it has any text."
 
         if gradeForm.is_valid():
