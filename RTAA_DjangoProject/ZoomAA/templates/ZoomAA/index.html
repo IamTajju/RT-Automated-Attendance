@@ -1,0 +1,51 @@
+{% extends "ZoomAA/layout.html" %}
+
+{% block body %}
+<div class="row align-items-center justify-content-center">
+    <div class="col-10">
+        <h1 class="display-2 text-center">RT Automated Attendance Portal</h1>
+    </div>
+</div>
+<div class="row mt-5 justify-content-center">
+    <div class="col-10">
+        <h1 class="lead text-center">Paste Screencap(s) of Zoom Participants' List from the clipboard below:
+        </h1>
+        <h3 class="mt-5 mb-1 text-muted">Instructions:</h3>
+        <ol class="mb-2">
+            <li class="lead">Take Screenshot using Windows Snipping Tool (Windows + Shift + S)</li>
+            <li class="lead">Paste by hovering Choose Field and press Ctrl+V. Or upload file already in memory
+            </li>
+            <li class="lead">Click on Submit to fire the OCR.</li>
+            <li class="lead">Repeat Steps 1-3 for as many screenshots as required. Click on Done when all the
+                screenshots/images have been Submitted.</li>
+        </ol>
+        <form action="{% url 'index' %}" id="new_document_attachment" method="POST" enctype=multipart/form-data>
+            {% csrf_token %}
+            <div class="form-control input-group mb-3 mt-3">
+                <input class="form-control" type="file" id="document_attachment_doc" name="image" />
+            </div>
+            {% if message %}
+            <div class="alert alert-warning mt-3" role="alert">
+                {{message}}
+            </div>
+            {% endif %}
+            <div class="alert alert-info mt-3" role="alert">
+                <p>Screenshots uploaded: {{counter}}</p>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+        <form action="{% url 'index' %}" method="POST" class="mt-2">
+            {% csrf_token %}
+            <div class="djangoForm">
+                {{ form }}
+            </div>
+            <button class="btn btn-success mb-2" type="submit">Done</button>
+            {% if check %}
+            <a class="btn btn-success mb-2" href="{% url 'summary' %}">Check Summary</a>
+            {% else %}
+            <a class="btn btn-success mb-2 disabled">Check Summary</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}

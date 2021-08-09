@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "rt-automated-attendance",
+  "private_key_id": "466f18a35266340fb8a62d4ba868126315c9c6f0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDkYMu5rQGxpOLu\nVUm/pFesAQg7E6JPQGALjrvtxhl1pjuiphbWuoend36bFwv2StGFGVPfZke7N0PA\nsSkUaghjXXaSXjyKdOljOPpWN31pfCwuo98hqHn5V3Q4bvpm4NOmXBueyngsYiVn\nKvPbX9vJw+x/zhIIy5fw227od1ohuL71D926ZPdg5rTAwnoYcvAlS4qc9dul+uKH\nQ0nQAHhwMxk8CYn63OhESTB1ivm8ncIotMyQSoubh3w9Uk7uPJa1HLK0xlSPxMYi\nYQKH4k0H4Bo9YvnTR9hsGCHxKDlHedqeYjhEsLZEY5XC+ds8JfpiTKNqFdbui8B0\nudqaexgRAgMBAAECggEAJ6G4mO8yBQ71JqD8XFp7sGi5ce8VUqV8RWUurbOcBXOk\nk7Q48GiMU/6DpQxZ0hLnyy47BOCuAAo2IsFbvKQt8nhstDfQT8K8IbDomH+mruCS\nlkFv3lprWF7Z11VC9Ql9ETiYvnSqaCFcFkw450/6R0hNyVwMeyRBqNWbqJHVvVYL\nNz2426+VvQupiMe3K4hhMZZbX83Cm+if3oVrxMhf68RCiuNy02sgy7+Xpy0JkygI\nbp2Z8ceY+zIoIzPrzE4+E1idKlTyAr2EqnSeXKpq0s7yYofhGIS202MArIzNEVSr\nPyesgQyVrQO6PvjfcC39lyVw9T8JE72xuPS2kZfLVQKBgQD1WGNaBiNf6IdeRU4+\nV+OefKiHLlmKtyWwrgZ6pIGfX0k9gP8jtUtLoAOAEvgx5cicrWXUupXrbWvXKasC\ngyUF0tpJHRiF9+3Kw6GZYUxbxzQlhEBAXn7baerst1X3RvQDzV8cuiPeIHR3OGN+\nxpoCAr8WT06qxa9xYHhHZcA/vwKBgQDuS8a8WepysrU4iOL1Yc4gYuPdL1VhK3IL\nq1WQKU8RKAyVXNx8lOSk+RQ/zEjjQFfeOYM48jC5xytNzK4NI5+mRu2+LypBCcsQ\ntaw8nuGV7Tv9VWPrk2b5cyIE9AJBrxbsC/0a8I+egK+6EOBF4YmW4blxOPDaTDpj\nUrAEYGmcLwKBgD7G0/0X7vs+Y0zCzQd0s6A8415bhLvSqwkvLic5apVd6z6agC4h\n2FdMZTjjIbCazB8S2yh4aZ3ozJwsZD5rUhDQZ9wnXrwAuU6VigbV95TQPs6OrWYL\nB8iarGrPamawOAW1Ce4uzriqc0KCIisxI/z5uO07c7SMipynA3+5UFy/AoGAOuLI\n2pSRpgRZWf4hr6eaq1AkpOzkeV2mEhIl07kRi9jMu0A2UCbvFYFjqpxNyrKExCqM\nLc9TkSURo2kX/bE2630NlPjMxUOpRZjPVi+g6U61i1XFmlpTkQMNfhHaWObukCgq\nRLT7mJyOUDmJYltoh7uB+uOqSRebOh4d1wcIMgsCgYAaaqGcWc7LylmqzsaZOXOs\nWzW9zkGveFEKRDtFo9dON4OKWkN8QDyR/ulbWt34p5sC/r39fIFSXTGQwQrnq/q/\nXZ9HLrjISj3CC0u8JBEnHe7jest/2iMx6EjGgRO8edOehgBjLHSwlws4WzeDqzm0\nYSP0DDWEyFcYeCct9445Vw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "rtaa-606@rt-automated-attendance.iam.gserviceaccount.com",
+  "client_id": "108409399694236374083",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/rtaa-606%40rt-automated-attendance.iam.gserviceaccount.com"
+}

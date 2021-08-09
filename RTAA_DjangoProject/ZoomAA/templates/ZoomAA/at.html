@@ -1,0 +1,108 @@
+{% extends "ZoomAA/layout.html" %}
+
+{% block body %}
+<div class="row align-items-center mt-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="grade9-tab" data-bs-toggle="tab" data-bs-target="#grade9" type="button"
+                role="tab" aria-controls="grade9" aria-selected="true">Grade 9</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grade10-tab" data-bs-toggle="tab" data-bs-target="#grade10" type="button"
+                role="tab" aria-controls="grade10" aria-selected="false">Grade 10</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grade11-tab" data-bs-toggle="tab" data-bs-target="#grade11" type="button"
+                role="tab" aria-controls="grade11" aria-selected="false">Grade 11</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="grade12-tab" data-bs-toggle="tab" data-bs-target="#grade12" type="button"
+                role="tab" aria-controls="grade11" aria-selected="false">Grade 12</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="grade9" role="tabpanel" aria-labelledby="grade9-tab">
+            <div class="row mt-2">
+                <table class="table table-hover lead">
+                    <thead>
+                        {% for item in row9 %}
+                        <th scope="col">{{ item }}</th>
+                        {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for list in data9 %}
+                        <tr>
+                            {% for item in list %}
+                            <td>{{ item }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="grade10" role="tabpanel" aria-labelledby="grade10-tab">
+            <div class="row mt-2">
+                <table class="table table-hover lead">
+                    <thead>
+                        <tr>
+                            {% for item in row10 %}
+                            <th scope="col">{{ item }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for list in data10 %}
+                        <tr>
+                            {% for item in list %}
+                            <td>{{ item }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="grade11" role="tabpanel" aria-labelledby="grade11-tab">
+            <div class="row mt-2">
+                <table class="table table-hover lead">
+                    <thead>
+                        {% for item in row11 %}
+                        <th scope="col">{{ item }}</th>
+                        {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for list in data11 %}
+                        <tr>
+                            {% for item in list %}
+                            <td>{{ item }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="grade12" role="tabpanel" aria-labelledby="grade12-tab">
+            <div class="row mt-2">
+                <table class="table table-hover lead">
+                    <thead>
+                        {% for item in row12 %}
+                        <th scope="col">{{ item }}</th>
+                        {% endfor %}
+                    </thead>
+                    <tbody>
+                        {% for list in data12 %}
+                        <tr>
+                            {% for item in list %}
+                            <td>{{ item }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+body > .container {
+    padding-top: 5%;
+    padding-bottom:5%;
+}
+
+.footer {
+    position: bottom;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    background-color: #f5f5f5;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.djangoForm {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #212529;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 3px;
+}
+
+.djangoForm > label {
+    padding-right: 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.djangoForm > select {
+    appearance: none;
+    background-color: transparent;
+    border: 1px solid #ccc!important;
+    padding: 0 1em 0 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+}
+
+.djangoForm > select::-ms-expand {
+    display: none;
+  }

@@ -1,0 +1,86 @@
+{% extends "ZoomAA/layout.html" %}
+{% block body %}
+<h1 class="display-3">Attendance Summary</h1>
+<hr>
+<div class="row align-items-center justify-content-between">
+    <div class="col-10">
+        <h2 class="display-5">Grade {{Grade}}</h2>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary mb-2" type="button" onclick="validate()">Send SMS(Selected)</button>
+    </div>
+</div>
+<table class="table table table-bordered mt-3" id="summarytbl">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Attendance</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for List in summary %}
+        {% if List|last == "Absent" %}
+        <tr class="table-warning">
+            {% else %}
+        <tr>
+            {% endif %}
+            <td>{{ List.0 }}</td>
+            <td>{{ List.1 }}</td>
+            <td>{{ List|last }}</td>
+            {% if List|last == "Present" %}
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" name="checkbox" type="checkbox" id="flexCheckDisabled" disabled>
+                    <label class="form-check-label" for="flexCheckDisabled">
+                        Send SMS
+                    </label>
+                </div>
+            </td>
+            {% else %}
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="checkbox" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Send SMS
+                    </label>
+                </div>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    function validate() {
+
+        //Reference the table
+        var summarytbl = document.getElementById("summarytbl");
+
+
+        //Reference all the checkboxes in Table.
+        var chks = summarytbl.getElementsByTagName("INPUT");
+
+        //Loop and store index of checked boxes
+        const chkIndex = [];
+        for (var i = 0; i < chks.length; i++) {
+
+            if (chks[i].checked) {
+                chkIndex.push(i + 1);
+            }
+        }
+
+
+        let data = new FormData(); // 2
+
+        data.append("arr", chkIndex)
+        data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+
+        axios.post('summary', data) // 4
+            .then(res => alert("SMS Sent Out")) // 5
+            .catch(errors => console.log(errors)) // 6
+    };
+</script>
+{% endblock %}
