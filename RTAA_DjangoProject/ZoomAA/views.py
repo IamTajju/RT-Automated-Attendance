@@ -36,7 +36,8 @@ def index(request):
                 image = request.FILES['image']
                 image = image.name
                 path = settings.MEDIA_ROOT
-                pathz = path + "\\images\\" + image
+                # "\\images\\" for local host
+                pathz = path + "/images/" + image
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
                 text = pytesseract.image_to_string(
