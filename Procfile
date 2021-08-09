@@ -1,1 +1,1 @@
-web: gunicorn RTAA.wsgi
+web: gunicorn RTAA_DjangoProject.wsgi
