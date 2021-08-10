@@ -52,9 +52,7 @@ def index(request):
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
                 Response.addStudentNames(text)
-                os.remove(pathz)
             except:
-                os.remove(pathz)
                 message = "Check your filename and ensure it doesn't have any space or check if it has any text."
 
         if gradeForm.is_valid():
