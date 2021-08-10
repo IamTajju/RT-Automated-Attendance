@@ -55,11 +55,12 @@ def index(request):
                 #text = text.decode()
                 request.session["ZoomNames"] = request.session["ZoomNames"] + text
                 request.session["counter"] = request.session["counter"] + 1
+                message = request.session["ZoomNames"]
             except:
                 message = "Check your filename and ensure it doesn't have any space or check if it has any text."
 
         if gradeForm.is_valid():
-            message = request["ZoomNames"]
+            message = request.session["ZoomNames"]
             request.session["Grade"] = gradeForm.cleaned_data["grade"]
             check = "Check Summary"
 
