@@ -96,7 +96,7 @@ def summaryView(request):
         now = datetime.now() + timedelta(hours=6)
         current_time = now.strftime("%H:%M:%S")
         Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard."
-        Presentmessage = f"Greetings! Your child is present in today's online physiscs class with Raphael Sir. As noted on {dateToday} at {current_time}."
+        Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}."
         response = requests.post(
             f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={absenteeContactList}&senderid=RaphaelsPhy&msg={Absentmessage}")
 
