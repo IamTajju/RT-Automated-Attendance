@@ -8,7 +8,7 @@ from .helpers import cleaningList, convertDayToLetter, getPresentStudentsIndex, 
 def updateGSHEETS(Response):
     # Variables holding scope and cred
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-    SERVICE_ACCOUNT_FILE = 'ZoomAA/keys.json'
+    SERVICE_ACCOUNT_FILE = 'keys.json'
 
     # Setting creds
     creds = None
