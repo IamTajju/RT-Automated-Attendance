@@ -25,7 +25,7 @@ def index(request):
     check = ""
     if request.method == "GET":
         request.session["DBWrite"] = False
-        request.session["ZoomNames"] = ""
+        request.session["ZoomNames"] = []
         request.session["Grade"] = "9"
         request.session["counter"] = 0
 
@@ -53,7 +53,7 @@ def index(request):
                     Image.open(image), lang='eng')
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
-                request.session["ZoomNames"] = request.session["ZoomNames"] + text
+                request.session["ZoomNames"].append(text)
                 request.session["counter"] = request.session["counter"] + 1
                 message = request.session["ZoomNames"]
             except:
