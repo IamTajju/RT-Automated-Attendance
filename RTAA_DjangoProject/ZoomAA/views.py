@@ -41,13 +41,14 @@ def index(request):
                     pathz = path + "/images/" + image
                     pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                     # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
-                    '''
+                    
                 image = image.name
                 path = settings.MEDIA_ROOT
                 pathz = path + "/images/" + image
+                '''
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 text = pytesseract.image_to_string(
-                    Image.open(pathz), lang='eng')
+                    Image.open(image), lang='eng')
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
                 Response.addStudentNames(text)
@@ -82,7 +83,7 @@ def summaryView(request):
         contactList = contactListOfAbsentees(summary, listOfStudents)
         print(contactList)
         api_key = "C200853760ffa65c04c926.91813669"
-        message = f"ur sun/dauter/object {datetime.fromtimestamp}"
+        message = f"ur sun/dauter/object missed class"
         response = requests.post(
             f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={contactList}&senderid=RaphaelsPhy&msg={message}")
 
