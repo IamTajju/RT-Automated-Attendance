@@ -100,14 +100,15 @@ def contactListOfAbsentees(summary, listOfIndices):
             continue
         if str(list[0]) in listOfIndices:
             if (len(absenteeContactList) == 0):
-                absenteeContactList = absenteeContactList + list[2]
+                absenteeContactList = absenteeContactList + str(list[2])
             else:
-                absenteeContactList = absenteeContactList + "," + list[2]
+                absenteeContactList = absenteeContactList + "," + str(list[2])
+                print(list[2])
         else:
             if (len(presentContactList) == 0):
-                presentContactList = presentContactList + list[2]
+                presentContactList = presentContactList + str(list[2])
             else:
-                presentContactList = presentContactList + "," + list[2]
+                presentContactList = presentContactList + "," + str(list[2])
 
     return absenteeContactList, presentContactList
 

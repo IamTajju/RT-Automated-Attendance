@@ -93,7 +93,7 @@ def summaryView(request):
             summary, listOfStudents)
         api_key = "C200853760ffa65c04c926.91813669"
         print(absenteeContactList)
-        print(type(absenteeContactList))
+        print(type(absenteeContactList[0]))
         dateToday = str(date.today())
         now = datetime.now() + timedelta(hours=6)
         current_time = now.strftime("%H:%M:%S")
