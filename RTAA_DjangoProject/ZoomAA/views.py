@@ -10,6 +10,8 @@ import requests
 from PIL import Image
 from django.conf import settings
 from .sheets import *
+from datetime import date
+from datetime import datetime
 # Create your views here.
 
 # Global Variable to Store user Response
@@ -86,15 +88,19 @@ def summaryView(request):
     if request.method == 'POST':
         arr = request.POST.get('arr')
         listOfStudents = list(arr.split(","))
-        contactList = contactListOfAbsentees(summary, listOfStudents)
-        print(contactList)
+        absenteeContactList, presentContactList = contactListOfAbsentees(
+            summary, listOfStudents)
         api_key = "C200853760ffa65c04c926.91813669"
-        message = f"ur sun/dauter/object missed class"
+        dateToday = str(date.today())
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        Absentmessage = f"Greetings! Your child is absent in today's online physiscs class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard."
+        Presentmessage = f"Greetings! Your child is present in today's online physiscs class with Raphael Sir. As noted on {dateToday} at {current_time}."
         response = requests.post(
-            f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={contactList}&senderid=RaphaelsPhy&msg={message}")
+            f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={absenteeContactList}&senderid=RaphaelsPhy&msg={Absentmessage}")
 
-        print(contactList)
-        print(response)
+        response = requests.post(
+            f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={presentContactList}&senderid=RaphaelsPhy&msg={Presentmessage}")
 
     return render(request, "ZoomAA/summary.html",
                   {

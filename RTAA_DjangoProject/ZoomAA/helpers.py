@@ -94,17 +94,23 @@ def getRedundantColumns(ListOfList):
 
 def contactListOfAbsentees(summary, listOfIndices):
 
-    contactList = ""
+    absenteeContactList = ""
+    presentContactList = ""
     for list in summary:
         if (list[2] == "8801734719888"):
             continue
         if str(list[0]) in listOfIndices:
-            if (len(contactList) == 0):
-                contactList = contactList + list[2]
+            if (len(absenteeContactList) == 0):
+                absenteeContactList = absenteeContactList + list[2]
             else:
-                contactList = contactList + "," + list[2]
+                absenteeContactList = absenteeContactList + "," + list[2]
+        else:
+            if (len(presentContactList) == 0):
+                presentContactList = presentContactList + list[2]
+            else:
+                presentContactList = presentContactList + "," + list[2]
 
-    return contactList
+    return absenteeContactList, presentContactList
 
 
 def cleaningList(ListOfList, redundantCols):
