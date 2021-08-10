@@ -59,6 +59,7 @@ def index(request):
                 message = "Check your filename and ensure it doesn't have any space or check if it has any text."
 
         if gradeForm.is_valid():
+            message = request["ZoomNames"]
             request.session["Grade"] = gradeForm.cleaned_data["grade"]
             check = "Check Summary"
 
