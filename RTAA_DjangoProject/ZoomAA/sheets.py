@@ -1,11 +1,12 @@
 from __future__ import print_function
+from django.conf import settings
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from datetime import datetime, date
 from .helpers import cleaningList, convertDayToLetter, getPresentStudentsIndex, getRedundantColumns
 
 
-def updateGSHEETS(Response):
+def updateGSHEETS(ZoomNames, Grade):
     # Variables holding scope and cred
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     # Account file should be just "ZoomAA/keys.json" in local host
@@ -26,8 +27,8 @@ def updateGSHEETS(Response):
     currentDateColumnLetter = convertDayToLetter(todays_date.day)
 
     # Response from Homepage
-    grade = Response.grade
-    zoomNameList = Response.studentNames
+    grade = Grade
+    zoomNameList = ZoomNames
 
     # Sheet Name to be used
     sheetname = month+str(grade)

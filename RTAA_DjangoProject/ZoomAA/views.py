@@ -13,19 +13,21 @@ from .sheets import *
 # Create your views here.
 
 # Global Variable to Store user Response
-Response = userResponse()
+# Response = userResponse()
 
 
 @allowedUsers(allowedRoles=['Raphael'])
 def index(request):
 
     text = ""
-    pathz = ""
+    #pathz = ""
     message = ""
     check = ""
     if request.method == "GET":
         request.session["DBWrite"] = False
-        Response.reset()
+        request.session["ZoomNames"] = ""
+        request.session["Grade"] = "9"
+        request.session["counter"] = 0
 
     if request.method == "POST":
         form = ImageUpload(request.POST, request.FILES)
@@ -51,17 +53,18 @@ def index(request):
                     Image.open(image), lang='eng')
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
-                Response.addStudentNames(text)
+                request.session["ZoomNames"] = request.session["ZoomNames"] + text
+                request.session["counter"] = request.session["counter"] + 1
             except:
                 message = "Check your filename and ensure it doesn't have any space or check if it has any text."
 
         if gradeForm.is_valid():
-            Response.grade = gradeForm.cleaned_data["grade"]
+            request.session["Grade"] = gradeForm.cleaned_data["grade"]
             check = "Check Summary"
 
     return render(request, "ZoomAA/index.html",
                   {
-                      "counter": Response.counter,
+                      "counter": request.session["counter"],
                       "message": message,
                       "form": GradeForm,
                       "check": check
@@ -71,9 +74,10 @@ def index(request):
 
 @allowedUsers(allowedRoles=['Raphael'])
 def summaryView(request):
-    grade = Response.grade
+    grade = request.session["Grade"]
     summary = [[]]
-    summary, classDate = updateGSHEETS(Response)
+    ZoomNames = request.session["ZoomNames"]
+    summary, classDate = updateGSHEETS(ZoomNames, grade)
 
     if request.method == 'POST':
         arr = request.POST.get('arr')
