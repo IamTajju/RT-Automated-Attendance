@@ -93,7 +93,6 @@ def getRedundantColumns(ListOfList):
 
 
 def contactListOfAbsentees(summary, listOfIndices):
-
     absenteeContactList = ""
     presentContactList = ""
     for list in summary:

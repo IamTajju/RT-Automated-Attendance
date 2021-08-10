@@ -92,6 +92,8 @@ def summaryView(request):
         absenteeContactList, presentContactList = contactListOfAbsentees(
             summary, listOfStudents)
         api_key = "C200853760ffa65c04c926.91813669"
+        print(absenteeContactList)
+        print(type(absenteeContactList))
         dateToday = str(date.today())
         now = datetime.now() + timedelta(hours=6)
         current_time = now.strftime("%H:%M:%S")
@@ -100,8 +102,11 @@ def summaryView(request):
         response = requests.post(
             f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={absenteeContactList}&senderid=RaphaelsPhy&msg={Absentmessage}")
 
+        print(response)
         response = requests.post(
             f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={presentContactList}&senderid=RaphaelsPhy&msg={Presentmessage}")
+
+        print(response)
 
     return render(request, "ZoomAA/summary.html",
                   {
