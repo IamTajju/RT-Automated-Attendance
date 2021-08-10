@@ -53,7 +53,8 @@ def index(request):
                     Image.open(image), lang='eng')
                 #text = text.encode("ascii", "ignore")
                 #text = text.decode()
-                request.session["ZoomNames"].append(text)
+                bufferList = text.split("\n\n")
+                request.session["ZoomNames"] = request.session["ZoomNames"] + bufferList
                 request.session["counter"] = request.session["counter"] + 1
                 message = request.session["ZoomNames"]
             except:
