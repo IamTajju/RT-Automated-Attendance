@@ -1,5 +1,4 @@
 from __future__ import print_function
-from django.conf import settings
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from datetime import datetime, date
@@ -71,7 +70,7 @@ def updateGSHEETS(ZoomNames, Grade):
     response = request.execute()
 
     classDateIndex = todays_date.day+2
-    return response["values"], classDateIndex
+    return response["values"], classDateIndex, numOfStuds, absent_body_value
 
 
 def getHistoricalAttendance(grade):
