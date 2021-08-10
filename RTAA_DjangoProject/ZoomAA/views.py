@@ -80,7 +80,7 @@ def summaryView(request):
     grade = request.session["Grade"]
     summary = [[]]
     ZoomNames = request.session["ZoomNames"]
-    summary, classDate, numOfStuds, absent_body_value = updateGSHEETS(
+    summary, classDate = updateGSHEETS(
         ZoomNames, grade)
 
     if request.method == 'POST':
@@ -101,10 +101,6 @@ def summaryView(request):
                       "Grade": grade,
                       "summary": summary,
                       "classDate": classDate,
-                      "ZoomNames": ZoomNames,
-                      "Grade": grade,
-                      "numOfStuds": numOfStuds,
-                      "absent_body_value": absent_body_value
 
                   }
                   )

@@ -70,7 +70,7 @@ def updateGSHEETS(ZoomNames, Grade):
     response = request.execute()
 
     classDateIndex = todays_date.day+2
-    return response["values"], classDateIndex, numOfStuds, absent_body_value
+    return response["values"], classDateIndex
 
 
 def getHistoricalAttendance(grade):
