@@ -51,9 +51,9 @@ def index(request):
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 text = pytesseract.image_to_string(
                     Image.open(image), lang='eng')
-                #text = text.encode("ascii", "ignore")
-                #text = text.decode()
-                bufferList = text.split("\n\n")
+                text = text.encode("ascii", "ignore")
+                text = text.decode()
+                bufferList = text.split("\n")
                 request.session["ZoomNames"] = request.session["ZoomNames"] + bufferList
                 request.session["counter"] = request.session["counter"] + 1
                 message = request.session["ZoomNames"]
