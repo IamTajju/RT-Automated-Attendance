@@ -32,24 +32,29 @@ def index(request):
         gradeForm = GradeForm(request.POST)
         if form.is_valid():
             form.save()
-            image = request.FILES['image']
-            '''
+            try:
+                image = request.FILES['image']
+                '''
+                    image = image.name
+                    path = settings.MEDIA_ROOT
+                    # "\\images\\" for local host
+                    pathz = path + "/images/" + image
+                    pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+                    # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
+                    '''
                 image = image.name
                 path = settings.MEDIA_ROOT
-                # "\\images\\" for local host
                 pathz = path + "/images/" + image
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-                # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
-                '''
-            pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-            text = pytesseract.image_to_string(
-                Image.open(image), lang='eng')
-            #text = text.encode("ascii", "ignore")
-            #text = text.decode()
-            Response.addStudentNames(text)
-            # os.remove(pathz)
-            # os.remove(pathz)
-            #message = "Check your filename and ensure it doesn't have any space or check if it has any text."
+                text = pytesseract.image_to_string(
+                    Image.open(pathz), lang='eng')
+                #text = text.encode("ascii", "ignore")
+                #text = text.decode()
+                Response.addStudentNames(text)
+                os.remove(pathz)
+            except:
+                os.remove(pathz)
+                message = "Check your filename and ensure it doesn't have any space or check if it has any text."
 
         if gradeForm.is_valid():
             Response.grade = gradeForm.cleaned_data["grade"]
