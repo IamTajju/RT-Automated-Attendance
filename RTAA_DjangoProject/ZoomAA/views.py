@@ -5,7 +5,6 @@ from .decorators import *
 import pytesseract
 from .forms import GradeForm, ImageUpload
 from .helpers import *
-import os
 import requests
 from PIL import Image
 from django.conf import settings
@@ -13,6 +12,7 @@ from .sheets import *
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+import time
 # Create your views here.
 
 # Global Variable to Store user Response
@@ -23,11 +23,9 @@ from datetime import timedelta
 def index(request):
 
     text = ""
-    #pathz = ""
     message = ""
     check = ""
     if request.method == "GET":
-        request.session["DBWrite"] = False
         request.session["ZoomNames"] = []
         request.session["Grade"] = "9"
         request.session["counter"] = 0
@@ -39,18 +37,7 @@ def index(request):
             form.save()
             try:
                 image = request.FILES['image']
-                '''
-                    image = image.name
-                    path = settings.MEDIA_ROOT
-                    # "\\images\\" for local host
-                    pathz = path + "/images/" + image
-                    pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-                    # C:\\Program Files\\Tesseract-OCR\\tesseract.exe
-                    
-                image = image.name
-                path = settings.MEDIA_ROOT
-                pathz = path + "/images/" + image
-                '''
+                # Change to 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' in localhost
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
                 text = pytesseract.image_to_string(
                     Image.open(image), lang='eng')
@@ -87,27 +74,65 @@ def summaryView(request):
         ZoomNames, grade)
 
     if request.method == 'POST':
+        # Get List of checked students' index to see who are present and absent
         arr = request.POST.get('arr')
+        # Splits the string with assigned delimiter
         listOfStudents = list(arr.split(","))
-        absenteeContactList, presentContactList = contactListOfAbsentees(
+
+        # Gets seperate contact list for absent and present students
+        absenteeContactList, presentContactList = createContactList(
             summary, listOfStudents)
+
+        # Api Key for SMS
         api_key = "C200853760ffa65c04c926.91813669"
-        print(absenteeContactList)
-        print(type(absenteeContactList[0]))
+
+        # Console print for check
+        for item in absenteeContactList:
+            print(f"AbsentContactList: {item}")
+
+        for item in presentContactList:
+            print(f"PresentContactList: {item}")
+
+        # Setting date and time to send as a part of SMS
         dateToday = str(date.today())
         now = datetime.now() + timedelta(hours=6)
         current_time = now.strftime("%H:%M:%S")
+
+        # Console print to check time and date
+        print(f"SMS Sent on: {current_time}")
+
+        # Message bodies
         Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard."
         Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}."
-        response = requests.post(
-            f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={absenteeContactList}&senderid=RaphaelsPhy&msg={Absentmessage}")
 
-        print(response)
-        response = requests.post(
-            f"https://esms.mimsms.com/smsapi?api_key={api_key}&type=text&contacts={presentContactList}&senderid=RaphaelsPhy&msg={Presentmessage}")
+        # Making API calls in batches of 3 for absent students
+        for contact in absenteeContactList:
+            response = requests.post("https://esms.mimsms.com/smsapi",
+                                     {
+                                         "api_key": api_key,
+                                         "type": "text",
+                                         "contacts": f"{contact}",
+                                         "senderid": "RaphaelsPhy",
+                                         "msg": f"{Absentmessage}"
+                                     })
 
-        print(response)
+            # Console print to check if API call was successful
+            print(f"Absent API Call: {response}")
+            print(type(response))
+            time.sleep(0.8)
 
+        # Making API calls in batches of 3 for present students
+        for contact in presentContactList:
+            response = requests.post("https://esms.mimsms.com/smsapi",
+                                     {
+                                         "api_key": api_key,
+                                         "type": "text",
+                                         "contacts": f"{contact}",
+                                         "senderid": "RaphaelsPhy",
+                                         "msg": f"{Presentmessage}"
+                                     })
+            print(f"Present API Call: {response}")
+            time.sleep(0.8)
     return render(request, "ZoomAA/summary.html",
                   {
                       "Grade": grade,

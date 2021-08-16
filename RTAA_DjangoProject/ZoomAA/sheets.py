@@ -9,6 +9,7 @@ def updateGSHEETS(ZoomNames, Grade):
     # Variables holding scope and cred
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
     # Account file should be just "ZoomAA/keys.json" in local host
+    #
     SERVICE_ACCOUNT_FILE = 'RTAA_DjangoProject/ZoomAA/keys.json'
 
     # Setting creds

@@ -1,39 +1,3 @@
-from typing import List
-
-
-class userResponse:
-
-    def __init__(self):
-        self.studentNames = []
-        self.counter = 0
-        self.grade = 9
-
-    def addStudentNames(self, text):
-        self.studentNames = self.studentNames + text.split('\n')
-        self.counter = self.counter + 1
-
-    def setGrade(self, grade):
-        self.grade = grade
-
-    def reset(self):
-        self.studentNames = []
-        self.counter = 0
-        self.grade = 9
-
-
-'''
-def compareNames(name1, name2):
-    if (len(name1) < 5):
-        return False
-
-    elif (name2.find(name1) == -1):
-        return False
-
-    else:
-        return True
-'''
-
-
 def compareNames(name1, name2):
     if (len(name1) < 5):
         return False
@@ -92,23 +56,89 @@ def getRedundantColumns(ListOfList):
     return redundantCols
 
 
-def contactListOfAbsentees(summary, listOfIndices):
-    absenteeContactList = ""
-    presentContactList = ""
+def createContactList(summary, listOfIndices):
+
+    # List of strings where each string is 3 contact numbers concatenated
+    absenteeContactList = []
+    presentContactList = []
+
+    # Counter to access index
+    AbsentCounter = 0
+    PresentCounter = 0
+
     for list in summary:
+
+        # Storing String in batches of 3 contacts concatented
+        if ((AbsentCounter % 3 == 0) or ((AbsentCounter + PresentCounter) == (len(summary)-1))):
+
+            # Appending to list if a batch of 3 contacts have been contenated.
+            if (AbsentCounter > 0):
+
+                # Check if this the first batch to appended
+                if not absenteeContactList:
+                    absenteeContactList.append(absenteeContacts3)
+                    # Setting these variables to empty string for next batch of contacts
+                    absenteeContacts3 = ""
+
+                # Check if this the same batch getting duplicated
+                elif ((absenteeContacts3 != absenteeContactList[-1]) and absenteeContacts3):
+                    absenteeContactList.append(absenteeContacts3)
+                    # Setting these variables to empty string for next batch of contacts
+                    absenteeContacts3 = ""
+
+            else:
+                # Setting these variables to empty string for next batch of contacts
+                absenteeContacts3 = ""
+
+        # Repeating for present students
+        if ((PresentCounter % 3 == 0) or ((AbsentCounter + PresentCounter) == (len(summary)-1))):
+
+            if (PresentCounter > 0):
+
+                if not presentContactList:
+                    presentContactList.append(presentContacts3)
+                    presentContacts3 = ""
+
+                elif ((presentContacts3 != presentContactList[-1]) and presentContacts3):
+                    presentContactList.append(presentContacts3)
+                    presentContacts3 = ""
+
+            else:
+                presentContacts3 = ""
+
+        # Ignoring filler contact
         if (list[2] == "8801734719888"):
             continue
+
+        # If student index matches checked indexes student is absent
         if str(list[0]) in listOfIndices:
-            if (len(absenteeContactList) == 0):
-                absenteeContactList = absenteeContactList + str(list[2])
+
+            # For first contact
+            if not absenteeContacts3:
+                absenteeContacts3 = absenteeContacts3 + str(list[2])
             else:
-                absenteeContactList = absenteeContactList + "," + str(list[2])
-                print(list[2])
+                absenteeContacts3 = absenteeContacts3 + "," + str(list[2])
+
+            # Incrementing Absentee counter
+            AbsentCounter = AbsentCounter + 1
+
+        # Else Student is present
         else:
-            if (len(presentContactList) == 0):
-                presentContactList = presentContactList + str(list[2])
+            # For first contact
+            if not presentContacts3:
+                presentContacts3 = presentContacts3 + str(list[2])
             else:
-                presentContactList = presentContactList + "," + str(list[2])
+                presentContacts3 = presentContacts3 + "," + str(list[2])
+
+            # Incrementing Present counter
+            PresentCounter = PresentCounter + 1
+
+        # Adding if any contact hasn't been appended during last iteration
+        if ((AbsentCounter + PresentCounter) == (len(summary))):
+            if absenteeContacts3:
+                absenteeContactList.append(absenteeContacts3)
+            if presentContacts3:
+                presentContactList.append(presentContacts3)
 
     return absenteeContactList, presentContactList
 
