@@ -105,6 +105,7 @@ def summaryView(request):
         Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard."
         Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}."
 
+        '''
         # Making API calls in batches of 3 for absent students
         for contact in absenteeContactList:
             response = requests.post("https://esms.mimsms.com/smsapi",
@@ -133,6 +134,7 @@ def summaryView(request):
                                      })
             print(f"Present API Call: {response}")
             time.sleep(0.8)
+        '''
     return render(request, "ZoomAA/summary.html",
                   {
                       "Grade": grade,
