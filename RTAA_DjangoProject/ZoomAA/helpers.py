@@ -106,10 +106,6 @@ def createContactList(summary, listOfIndices):
             else:
                 presentContacts3 = ""
 
-        # Ignoring filler contact
-        if (list[2] == "8801734719888"):
-            continue
-
         # If student index matches checked indexes student is absent
         if str(list[0]) in listOfIndices:
 
