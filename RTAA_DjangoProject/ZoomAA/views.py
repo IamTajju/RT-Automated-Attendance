@@ -67,6 +67,7 @@ def index(request):
 
 @allowedUsers(allowedRoles=['Raphael'])
 def summaryView(request):
+    message = ""
     grade = request.session["Grade"]
     summary = [[]]
     ZoomNames = request.session["ZoomNames"]
@@ -119,7 +120,6 @@ def summaryView(request):
             # Console print to check if API call was successful
             print(f"Absent API Call: {response}")
             print(type(response))
-            time.sleep(0.8)
 
         # Making API calls in batches of 3 for present students
         for contact in presentContactList:
@@ -132,14 +132,14 @@ def summaryView(request):
                                          "msg": f"{Presentmessage}"
                                      })
             print(f"Present API Call: {response}")
-            time.sleep(0.8)
+        message = "All SMS Sent Out"
 
     return render(request, "ZoomAA/summary.html",
                   {
                       "Grade": grade,
                       "summary": summary,
                       "classDate": classDate,
-
+                      "message": message
                   }
                   )
 

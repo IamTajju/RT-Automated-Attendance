@@ -5,6 +5,11 @@
 <div class="row align-items-center justify-content-between">
     <div class="col-10">
         <h2 class="display-5">Grade {{Grade}}</h2>
+        {% if message %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
     </div>
     <div class="col-2">
         <button class="btn btn-primary mb-2" type="button" onclick="validate()">Send SMS(Selected)</button>
@@ -79,7 +84,7 @@
         data.append("csrfmiddlewaretoken", '{{csrf_token}}')
 
         axios.post('summary', data) // 4
-            .then(res => alert("SMS Sent Out")) // 5
+            .then(res => alert("SMS Being Sent Out. Do not close the tab till the completion message is shown")) // 5
             .catch(errors => console.log(errors)) // 6
     };
 </script>
