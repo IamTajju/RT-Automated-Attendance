@@ -67,7 +67,6 @@ def index(request):
 
 @allowedUsers(allowedRoles=['Raphael'])
 def summaryView(request):
-    message = ""
     grade = request.session["Grade"]
     summary = [[]]
     ZoomNames = request.session["ZoomNames"]
@@ -81,18 +80,15 @@ def summaryView(request):
         listOfStudents = list(arr.split(","))
 
         # Gets seperate contact list for absent and present students
-        absenteeContactList, presentContactList = createContactList(
+        absenteeContacts, presentContacts = createContactList(
             summary, listOfStudents)
 
         # Api Key for SMS
         api_key = "C200853760ffa65c04c926.91813669"
 
         # Console print for check
-        for item in absenteeContactList:
-            print(f"AbsentContactList: {item}")
-
-        for item in presentContactList:
-            print(f"PresentContactList: {item}")
+        print("A:" + absenteeContacts)
+        print("P:" + presentContacts)
 
         # Setting date and time to send as a part of SMS
         dateToday = str(date.today())
@@ -103,43 +99,39 @@ def summaryView(request):
         print(f"SMS Sent on: {current_time}")
 
         # Message bodies
-        Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard."
-        Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}."
+        Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard. ধন্যবাদ।"
+        Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. ধন্যবাদ।"
 
-        # Making API calls in batches of 3 for absent students
-        for contact in absenteeContactList:
-            response = requests.post("https://esms.mimsms.com/smsapi",
-                                     {
-                                         "api_key": api_key,
-                                         "type": "text",
-                                         "contacts": f"{contact}",
-                                         "senderid": "RaphaelsPhy",
-                                         "msg": f"{Absentmessage}"
-                                     })
+        # Making API calls for absent students
+        response = requests.post("https://esms.mimsms.com/smsapi",
+                                 {
+                                     "api_key": api_key,
+                                     "type": "text",
+                                     "contacts": f"{absenteeContacts}",
+                                     "senderid": "RaphaelsPhy",
+                                     "msg": f"{Absentmessage}"
+                                 })
 
-            # Console print to check if API call was successful
-            print(f"Absent API Call: {response}")
-            print(type(response))
+        # Console print to check if API call was successful
+        print(f"Absent API Call: {response}")
+        print(type(response))
 
-        # Making API calls in batches of 3 for present students
-        for contact in presentContactList:
-            response = requests.post("https://esms.mimsms.com/smsapi",
-                                     {
-                                         "api_key": api_key,
-                                         "type": "text",
-                                         "contacts": f"{contact}",
-                                         "senderid": "RaphaelsPhy",
-                                         "msg": f"{Presentmessage}"
-                                     })
-            print(f"Present API Call: {response}")
-        message = "All SMS Sent Out"
+        # Making API calls for present students
+        response = requests.post("https://esms.mimsms.com/smsapi",
+                                 {
+                                     "api_key": api_key,
+                                     "type": "text",
+                                     "contacts": f"{presentContacts}",
+                                     "senderid": "RaphaelsPhy",
+                                     "msg": f"{Presentmessage}"
+                                 })
+        print(f"Present API Call: {response}")
 
     return render(request, "ZoomAA/summary.html",
                   {
                       "Grade": grade,
                       "summary": summary,
                       "classDate": classDate,
-                      "message": message
                   }
                   )
 

@@ -56,6 +56,7 @@ def getRedundantColumns(ListOfList):
     return redundantCols
 
 
+'''
 def createContactList(summary, listOfIndices):
 
     # List of strings where each string is 3 contact numbers concatenated
@@ -138,6 +139,8 @@ def createContactList(summary, listOfIndices):
 
     return absenteeContactList, presentContactList
 
+'''
+
 
 def cleaningList(ListOfList, redundantCols):
     while((len(ListOfList[0]) > len(ListOfList[1]))):
@@ -150,3 +153,24 @@ def cleaningList(ListOfList, redundantCols):
             counter = counter + 1
 
     return ListOfList
+
+
+def createContactList(summary, listOfIndices):
+    # Concatnated strings
+    absenteeContactList = ""
+    presentContactList = ""
+
+    for list in summary:
+        if str(list[0]) in listOfIndices:
+            if not absenteeContactList:
+                absenteeContactList = str(list[2])
+            else:
+                absenteeContactList = absenteeContactList + "," + str(list[2])
+
+        else:
+            if not presentContactList:
+                presentContactList = str(list[2])
+            else:
+                presentContactList = presentContactList + "," + str(list[2])
+
+    return absenteeContactList, presentContactList
