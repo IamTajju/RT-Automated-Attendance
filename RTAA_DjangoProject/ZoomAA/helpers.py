@@ -155,6 +155,7 @@ def cleaningList(ListOfList, redundantCols):
     return ListOfList
 
 
+'''
 def createContactList(summary, listOfIndices):
     # Concatnated strings
     absenteeContactList = ""
@@ -174,3 +175,35 @@ def createContactList(summary, listOfIndices):
                 presentContactList = presentContactList + "," + str(list[2])
 
     return absenteeContactList, presentContactList
+'''
+
+
+def createContactList(summary, PresentList, AbsentListSMS):
+    # Concatnated strings
+    absenteeContactList = ""
+    presentContactList = ""
+
+    for list in summary:
+        if str(list[0]) in PresentList:
+            if not presentContactList:
+                presentContactList = str(list[2])
+            else:
+                presentContactList = presentContactList + "," + str(list[2])
+
+        elif str(list[0]) in AbsentListSMS:
+            if not absenteeContactList:
+                absenteeContactList = str(list[2])
+            else:
+                absenteeContactList = absenteeContactList + "," + str(list[2])
+
+    return absenteeContactList, presentContactList
+
+
+def getStudentsIndexList(arr, attType):
+    indexList = []
+    for item in arr:
+        stringList = list(item.split("+"))
+        if stringList[0] == attType:
+            indexList.append(stringList[1])
+
+    return indexList

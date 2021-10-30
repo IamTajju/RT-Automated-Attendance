@@ -15,12 +15,104 @@ from datetime import timedelta
 import time
 # Create your views here.
 
-# Global Variable to Store user Response
-# Response = userResponse()
-
 
 @allowedUsers(allowedRoles=['Raphael'])
 def index(request):
+    grades = [["9 Online", "9 Bashundhara", "9 Uttara"], ["10 Online", "10 Bashundhara", "10 Uttara"], [
+        "11 Online", "11 Bashundhara", "11 Uttara"], ["12 Online", "12 Bashundhara", "12 Uttara"]]
+
+    request.session["message"] = ""
+    return render(request, "ZoomAA/index.html", {
+        "grades": grades
+    })
+
+
+def AttendanceInput(request, grade):
+    data = GetStudentNames(grade)
+    if request.method == 'POST':
+        # Get List of checked students' index to see who are present and absent
+        arr = request.POST.get('arr')
+
+        PresentStudentIndex = getStudentsIndexList(
+            list(arr.split(",")), "Present")
+        AbsentSMSStudentIndex = getStudentsIndexList(
+            list(arr.split(",")), "AbsentSMS")
+        AbsentStudentIndex = getStudentsIndexList(
+            list(arr.split(",")), "Absent")
+
+        summary, classDate = updateAttendance(
+            PresentStudentIndex, grade, "Present")
+
+        summary, classDate = updateAttendance(
+            AbsentSMSStudentIndex, grade, "Absent")
+
+        summary, classDate = updateAttendance(
+            AbsentStudentIndex, grade, "Absent")
+
+        # Gets seperate contact list for absent and present students
+        absenteeContacts, presentContacts = createContactList(
+            summary, PresentStudentIndex, AbsentSMSStudentIndex)
+
+        # Api Key for SMS
+        api_key = "C200853760ffa65c04c926.91813669"
+
+        # Console print for check
+        print("A:" + absenteeContacts)
+        print("P:" + presentContacts)
+
+        # Setting date and time to send as a part of SMS
+        dateToday = str(date.today())
+        now = datetime.now() + timedelta(hours=6)
+        current_time = now.strftime("%H:%M:%S")
+
+        # Console print to check time and date
+        print(f"SMS Sent on: {current_time}")
+
+        # Message bodies
+        Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard. ধন্যবাদ।"
+        Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. ধন্যবাদ।"
+
+        # Making API calls for absent students
+        response = requests.post("https://esms.mimsms.com/smsapi",
+                                 {
+                                     "api_key": api_key,
+                                     "type": "text",
+                                     "contacts": f"{absenteeContacts}",
+                                     "senderid": "RaphaelsPhy",
+                                     "msg": f"{Absentmessage}"
+                                 })
+
+        # Console print to check if API call was successful
+        absent_status_code = response.status_code
+        print(f"Absent API Call: {absent_status_code}")
+
+        # Making API calls for present students
+        response = requests.post("https://esms.mimsms.com/smsapi",
+                                 {
+                                     "api_key": api_key,
+                                     "type": "text",
+                                     "contacts": f"{presentContacts}",
+                                     "senderid": "RaphaelsPhy",
+                                     "msg": f"{Presentmessage}"
+                                 })
+        present_status_code = response.status_code
+        print(f"Present API Call: {present_status_code}")
+        if ((present_status_code == 200)) and ((absent_status_code == 200)):
+            message = "SMS sent out successfully"
+        else:
+            message = "You messed up boi, try again."
+
+        request.session["message"] = message
+
+    return render(request, "ZoomAA/attendanceInput.html", {
+        "data": data,
+        "grade": grade,
+        "message": request.session["message"]
+    })
+
+
+@allowedUsers(allowedRoles=['Raphael'])
+def onlineIndex(request):
 
     text = ""
     message = ""
@@ -37,8 +129,9 @@ def index(request):
             form.save()
             try:
                 image = request.FILES['image']
-                # Change to 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' in localhost
                 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+                # Change to 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe' in localhost
+                # pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
                 text = pytesseract.image_to_string(
                     Image.open(image), lang='eng')
                 text = text.encode("ascii", "ignore")
@@ -55,7 +148,7 @@ def index(request):
             request.session["Grade"] = gradeForm.cleaned_data["grade"]
             check = "Check Summary"
 
-    return render(request, "ZoomAA/index.html",
+    return render(request, "ZoomAA/onlineIndex.html",
                   {
                       "counter": request.session["counter"],
                       "message": message,
