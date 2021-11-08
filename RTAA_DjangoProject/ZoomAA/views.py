@@ -69,8 +69,8 @@ def AttendanceInput(request, grade):
         print(f"SMS Sent on: {current_time}")
 
         # Message bodies
-        Absentmessage = f"Greetings! Your child is absent in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard. ধন্যবাদ।"
-        Presentmessage = f"Greetings! Your child is present in today's online physics class with Raphael Sir. As noted on {dateToday} at {current_time}. ধন্যবাদ।"
+        Absentmessage = f"Greetings! Your child is absent in today's physics class with Raphael Sir. As noted on {dateToday} at {current_time}. We are requesting you to take appropriate action in this regard. ধন্যবাদ।"
+        Presentmessage = f"Greetings! Your child is present in today's physics class with Raphael Sir. As noted on {dateToday} at {current_time}. ধন্যবাদ।"
 
         # Making API calls for absent students
         response = requests.post("https://esms.mimsms.com/smsapi",
