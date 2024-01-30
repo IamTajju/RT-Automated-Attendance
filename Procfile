@@ -1,1 +1,0 @@
-web: gunicorn --pythonpath RTAA_DjangoProject RTAA_DjangoProject.wsgi
