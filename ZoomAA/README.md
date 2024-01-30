@@ -2,6 +2,8 @@
 
 **Note:** This project is no longer maintained and has been discontinued since 2021.
 
+![Home Page](screenshots/home_page.png)
+
 ## Overview
 
 This project served as an attendance tracker for online classes conducted by Raphael Teaches. The primary functionality involved processing screenshots of Zoom meeting participants, extracting names using pytesseract OCR, and then matching them with registered students in the database. The system marked students as present or absent based on the matching results.
